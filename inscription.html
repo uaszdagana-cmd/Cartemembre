@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscription — AERDZ</title>
+  <meta name="description" content="Formulaire d'inscription à la carte étudiant AERDZ. Inscription gratuite, paiement après validation.">
+  <meta name="theme-color" content="#0b2545">
+  <link rel="icon" href="img/logo.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="inscription">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header id="site-header"></header>
+
+  <main id="contenu" class="page">
+    <div class="container narrow">
+
+      <!-- ============ FORMULAIRE ============ -->
+      <section id="vue-formulaire">
+        <h1 class="page-title">Formulaire d'inscription</h1>
+        <p class="page-sub">
+          Les champs marqués d'un <span class="req" aria-hidden="true">*</span><span class="sr-only">astérisque</span> sont obligatoires.
+          <strong>L'inscription est gratuite</strong> : le paiement de <span data-cfg="price">1 000 FCFA</span> ne vous sera demandé qu'après la validation de votre dossier.
+        </p>
+
+        <form id="form-inscription" class="card form-card" novalidate>
+          <h2 class="form-section">1. Informations personnelles</h2>
+          <div class="grid-2">
+            <div class="field">
+              <label class="field-label" for="nom">Nom <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="nom" name="nom" placeholder="Ex : DIOP" autocomplete="family-name" maxlength="60" required aria-describedby="err-nom">
+              <p class="field-error" id="err-nom" role="alert"></p>
+            </div>
+            <div class="field">
+              <label class="field-label" for="prenom">Prénom <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="prenom" name="prenom" placeholder="Ex : Aminata" autocomplete="given-name" maxlength="60" required aria-describedby="err-prenom">
+              <p class="field-error" id="err-prenom" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field-label" for="filiere">Filière <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="filiere" name="filiere" list="filieres" placeholder="Ex : Mathématiques - Informatique" maxlength="100" required aria-describedby="err-filiere">
+              <datalist id="filieres"></datalist>
+              <p class="field-error" id="err-filiere" role="alert"></p>
+            </div>
+            <div class="field">
+              <label class="field-label" for="niveau">Niveau d'études <span class="req" aria-hidden="true">*</span></label>
+              <select class="input" id="niveau" name="niveau" required aria-describedby="err-niveau">
+                <option value="">— Sélectionnez —</option>
+              </select>
+              <p class="field-error" id="err-niveau" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field-label" for="telephone">Téléphone <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="tel" id="telephone" name="telephone" placeholder="Ex : 77 123 45 67" inputmode="tel" autocomplete="tel" maxlength="25" required aria-describedby="hint-tel err-telephone">
+              <p class="field-hint" id="hint-tel">Avec ou sans l'indicatif (+221).</p>
+              <p class="field-error" id="err-telephone" role="alert"></p>
+            </div>
+            <div class="field">
+              <label class="field-label" for="email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input class="input" type="email" id="email" name="email" placeholder="nom@exemple.com" autocomplete="email" maxlength="150" required aria-describedby="err-email">
+              <p class="field-error" id="err-email" role="alert"></p>
+            </div>
+          </div>
+
+          <h2 class="form-section">2. Photo d'identité <span class="optional">(facultatif)</span></h2>
+          <div class="field dropzone" id="dz-photo">
+            <label class="dz-area" for="photo">
+              <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/webp" class="sr-only-input">
+              <span class="dz-icon" aria-hidden="true">📷</span>
+              <span class="dz-text"><strong>Choisissez une photo</strong> ou glissez-la ici<br><small>JPG, PNG ou WebP — 5 Mo maximum. Photo de face, fond clair.</small></span>
+            </label>
+            <div class="dz-preview" hidden>
+              <img alt="Aperçu de la photo choisie">
+              <button type="button" class="btn btn-ghost btn-sm dz-remove">Retirer</button>
+            </div>
+            <p class="field-error" role="alert"></p>
+          </div>
+
+          <div class="form-actions">
+            <a href="index.html" class="btn btn-ghost">Annuler</a>
+            <button type="submit" class="btn btn-primary btn-lg" id="btn-submit">Envoyer ma demande</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ============ SUCCÈS ============ -->
+      <section id="vue-succes" class="success-card" hidden>
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <h1>Demande envoyée !</h1>
+        <p>Merci <strong id="succes-nom"></strong>. Votre demande est <strong>en attente de validation</strong> par l'administration.</p>
+        <p class="muted">Conservez votre référence de suivi :</p>
+        <div class="ref-box">
+          <code id="succes-ref" aria-label="Référence de suivi"></code>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-copy-ref">Copier</button>
+        </div>
+        <p class="muted small">Une fois validée, vous pourrez payer votre carte (<span data-cfg="price">1 000 FCFA</span> par Wave) depuis la page de suivi.</p>
+        <div class="success-actions">
+          <a href="suivi.html" id="lien-suivi" class="btn btn-primary">Suivre ma demande</a>
+          <a href="index.html" class="btn btn-ghost">Retour à l'accueil</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Ce site nécessite JavaScript pour fonctionner.</p></noscript>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/inscription.js"></script>
+</body>
+</html>

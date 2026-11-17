@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ma carte — AERDZ</title>
+  <meta name="description" content="Consultez et imprimez votre carte étudiant AERDZ une fois votre paiement confirmé.">
+  <meta name="theme-color" content="#0b2545">
+  <link rel="icon" href="img/logo.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="carte">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header id="site-header"></header>
+
+  <main id="contenu" class="page">
+    <div class="container narrow">
+
+      <!-- ============ RECHERCHE ============ -->
+      <section id="vue-recherche" class="no-print">
+        <h1 class="page-title">Consulter ma carte étudiant</h1>
+        <p class="page-sub">Saisissez votre référence de suivi, votre numéro de carte (ex. AERDZ-2026-001) ou votre email. La carte est disponible une fois le paiement confirmé.</p>
+        <form id="form-recherche" class="card lookup-card" novalidate>
+          <div class="field">
+            <label class="field-label" for="recherche-val">Référence, numéro de carte ou email</label>
+            <div class="input-row">
+              <input class="input" type="text" id="recherche-val" placeholder="Ex : DGN-AB12CD" autocomplete="off" autocapitalize="off" spellcheck="false" required aria-describedby="msg-recherche">
+              <button type="submit" class="btn btn-primary">Consulter</button>
+            </div>
+          </div>
+        </form>
+        <div id="msg-recherche" aria-live="polite"></div>
+      </section>
+
+      <!-- ============ CARTE ============ -->
+      <section id="vue-carte" hidden>
+        <div class="card-toolbar no-print">
+          <button type="button" class="btn btn-ghost" id="btn-retour">← Nouvelle recherche</button>
+          <button type="button" class="btn btn-primary" id="btn-print">Imprimer / Enregistrer en PDF</button>
+        </div>
+        <div class="carte-wrap" id="carte-zone"></div>
+        <p class="muted small center no-print card-tip">
+          Astuce : dans la fenêtre d'impression, choisissez « Enregistrer au format PDF » et activez
+          « Graphiques d'arrière-plan » pour conserver les couleurs.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Ce site nécessite JavaScript pour fonctionner.</p></noscript>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/carte.js"></script>
+</body>
+</html>

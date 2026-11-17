@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration — AERDZ</title>
+  <meta name="description" content="Espace administrateur AERDZ : validation des demandes, confirmation des paiements, export.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0b2545">
+  <link rel="icon" href="img/logo.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="admin">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header id="site-header"></header>
+
+  <main id="contenu" class="page">
+    <div class="container">
+
+      <!-- ============ PREMIÈRE UTILISATION : création du mot de passe ============ -->
+      <section id="vue-setup" class="narrow-sm center-block" hidden>
+        <h1 class="page-title">Créer le mot de passe administrateur</h1>
+        <p class="page-sub">Première utilisation : choisissez un mot de passe personnel (8 caractères minimum, avec lettres et chiffres). Il ne sera jamais affiché ni écrit dans le code du site.</p>
+        <form id="form-setup" class="card form-card" novalidate autocomplete="off">
+          <div class="field">
+            <label class="field-label" for="setup-pwd">Nouveau mot de passe</label>
+            <input class="input" type="password" id="setup-pwd" autocomplete="new-password" required aria-describedby="err-setup-pwd">
+            <p class="field-error" id="err-setup-pwd" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field-label" for="setup-pwd2">Confirmer le mot de passe</label>
+            <input class="input" type="password" id="setup-pwd2" autocomplete="new-password" required aria-describedby="err-setup-pwd2">
+            <p class="field-error" id="err-setup-pwd2" role="alert"></p>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Créer et se connecter</button>
+        </form>
+      </section>
+
+      <!-- ============ CONNEXION ============ -->
+      <section id="vue-login" class="narrow-sm center-block" hidden>
+        <h1 class="page-title">Espace administrateur</h1>
+        <p class="page-sub">Accès réservé à l'équipe AERDZ.</p>
+        <form id="form-login" class="card form-card" novalidate>
+          <div class="field">
+            <label class="field-label" for="login-pwd">Mot de passe</label>
+            <div class="input-row input-row-tight">
+              <input class="input" type="password" id="login-pwd" autocomplete="current-password" placeholder="••••••••" required aria-describedby="err-login">
+              <button type="button" class="btn btn-ghost" id="btn-eye" aria-label="Afficher le mot de passe" aria-pressed="false">Afficher</button>
+            </div>
+            <p class="field-error" id="err-login" role="alert"></p>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn-login">Se connecter</button>
+        </form>
+      </section>
+
+      <!-- ============ TABLEAU DE BORD ============ -->
+      <section id="vue-dashboard" hidden>
+        <div class="dash-head">
+          <div>
+            <h1 class="page-title">Tableau de bord</h1>
+            <p class="muted">Validez les demandes, puis confirmez les paiements Wave pour délivrer les cartes.</p>
+          </div>
+          <button type="button" id="btn-logout" class="btn btn-ghost">Se déconnecter</button>
+        </div>
+
+        <div class="stats-grid" id="stats"></div>
+
+        <div class="chips" id="chips" role="group" aria-label="Filtrer par étape"></div>
+
+        <div class="toolbar card">
+          <div class="field">
+            <label class="field-label" for="recherche">Rechercher</label>
+            <input class="input" type="search" id="recherche" placeholder="Nom, prénom, filière, niveau, email, n° de carte…" autocomplete="off">
+          </div>
+          <div class="field">
+            <label class="field-label" for="filtre-niveau">Niveau</label>
+            <select class="input" id="filtre-niveau"><option value="">Tous les niveaux</option></select>
+          </div>
+          <div class="field">
+            <label class="field-label" for="tri">Trier par</label>
+            <select class="input" id="tri">
+              <option value="recent">Plus récentes</option>
+              <option value="ancien">Plus anciennes</option>
+              <option value="nom">Nom (A → Z)</option>
+            </select>
+          </div>
+          <div class="field field-end">
+            <button type="button" id="btn-export" class="btn btn-primary">Exporter en CSV</button>
+          </div>
+        </div>
+
+        <p class="results-info" id="results-info" role="status"></p>
+
+        <div class="table-wrap card" id="table-wrap">
+          <table class="table table-resp">
+            <thead>
+              <tr>
+                <th scope="col">Étudiant</th>
+                <th scope="col">Filière / Niveau</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Demande</th>
+                <th scope="col">Paiement</th>
+                <th scope="col">N° carte</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <div id="vide" class="empty" hidden>
+            <p><strong>Aucun dossier trouvé.</strong></p>
+            <p class="muted">Modifiez la recherche ou le filtre, ou attendez de nouvelles inscriptions.</p>
+          </div>
+        </div>
+
+        <nav class="pagination" id="pagination" aria-label="Pagination" hidden></nav>
+
+        <div class="tools-grid">
+          <section class="card small-card" aria-labelledby="t-pwd">
+            <h2 id="t-pwd">Changer le mot de passe</h2>
+            <form id="form-pwd" novalidate autocomplete="off">
+              <div class="field"><label class="field-label" for="old-pwd">Ancien mot de passe</label>
+                <input class="input" type="password" id="old-pwd" autocomplete="current-password" required></div>
+              <div class="field"><label class="field-label" for="new-pwd">Nouveau mot de passe</label>
+                <input class="input" type="password" id="new-pwd" autocomplete="new-password" required aria-describedby="err-pwd">
+                <p class="field-hint">8 caractères minimum, avec lettres et chiffres.</p></div>
+              <p class="field-error" id="err-pwd" role="alert"></p>
+              <button type="submit" class="btn btn-primary btn-sm">Mettre à jour</button>
+            </form>
+          </section>
+
+          <section class="card small-card" aria-labelledby="t-save">
+            <h2 id="t-save">Sauvegarde des données</h2>
+            <p class="muted small">Les données sont enregistrées dans <strong>ce navigateur</strong>. Faites une sauvegarde régulière.</p>
+            <div class="meter" role="img" aria-label="Espace de stockage utilisé"><span id="meter-fill"></span></div>
+            <p class="small" id="meter-text"></p>
+            <div class="btn-row">
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-backup">Télécharger la sauvegarde</button>
+              <label class="btn btn-ghost btn-sm file-btn" for="restore-file">Restaurer…
+                <input type="file" id="restore-file" accept="application/json,.json" class="sr-only-input">
+              </label>
+            </div>
+          </section>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Ce site nécessite JavaScript pour fonctionner.</p></noscript>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

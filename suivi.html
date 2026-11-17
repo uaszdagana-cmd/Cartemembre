@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suivi &amp; paiement — AERDZ</title>
+  <meta name="description" content="Suivez l'avancement de votre demande de carte étudiant AERDZ et réglez les frais par Wave après validation.">
+  <meta name="theme-color" content="#0b2545">
+  <link rel="icon" href="img/logo.jpg" type="image/jpeg">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body data-page="suivi">
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+  <header id="site-header"></header>
+
+  <main id="contenu" class="page">
+    <div class="container narrow">
+      <h1 class="page-title">Suivi de ma demande</h1>
+      <p class="page-sub">
+        Saisissez votre <strong>référence de suivi</strong> (ex. DGN-AB12CD), votre numéro de carte ou votre email.
+        Après la validation de votre demande, c'est ici que vous réglez les frais de carte.
+      </p>
+
+      <form id="form-lookup" class="card lookup-card" novalidate>
+        <div class="field">
+          <label class="field-label" for="q">Référence, numéro de carte ou email</label>
+          <div class="input-row">
+            <input class="input" type="text" id="q" name="q" placeholder="Ex : DGN-AB12CD ou nom@exemple.com" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="err-q" required>
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+          </div>
+          <p class="field-error" id="err-q" role="alert"></p>
+        </div>
+      </form>
+
+      <div id="resultat" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Ce site nécessite JavaScript pour fonctionner.</p></noscript>
+  <script src="js/config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/suivi.js"></script>
+</body>
+</html>
